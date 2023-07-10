@@ -23,7 +23,7 @@ The repository is structured as follows:
   - `datasets/` contains the raw and processed anti-malarial dataset, as well as ~2m unlabeled molecular structures from the ZINC database.
   - `preprocess_antimalarial_data.ipynb` annotated notebook that describes all procedures used for data curation, covariate and label shift quantification, and data splitting.
   - `preprocess_zinc.py` utilities to convert ZINC SMILES strings to ECFPs and rdkitFPs.
-- `qsavi/` contains all models, objectives and utilities required to reproduce and extend the results presented in the paper.
+- `qsavi/` contains all models, objectives and utilities needed to reproduce and extend the results presented in the paper.
   - `bayesian_mlps.py` definition of stochastic MLPs used in the paper.
   - `config.py` default hyperparameter settings and search spaces.
   - `context_points.py` functions to sample from pre-processed context point distribution.
