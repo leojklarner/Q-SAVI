@@ -13,7 +13,44 @@ This repository contains an end-to-end pipeline to reproduce and extend the data
 
 **Abstract**: Accelerating the discovery of novel and more effective therapeutics is an important pharmaceutical problem in which deep learning is playing an increasingly significant role. However, real-world drug discovery tasks are often characterized by a scarcity of labeled data and significant covariate shift—a setting that poses a challenge to standard deep learning methods. 
 <img align="right" src="./images/graphical_abstract.png" width="400px"/>
-In this paper, we present Q-SAVI, a probabilistic model able to address these challenges by encoding explicit prior knowledge of the data-generating process into a prior distribution over functions, presenting researchers with a transparent and probabilistically principled way to encode data-driven modeling preferences. Building on a novel, gold-standard bioactivity dataset that facilitates a meaningful comparison of models in an extrapolative regime, we explore different approaches to induce data shift and construct a challenging evaluation setup. We then demonstrate that using Q-SAVI to integrate contextualized prior knowledge of drug-like chemical space into the modeling process affords substantial gains in predictive accuracy and calibration, outperforming a broad range of state-of-the-art self-supervised pre-training and domain adaptation techniques. 
+In this paper, we present Q-SAVI, a probabilistic model able to address these challenges by encoding explicit prior knowledge of the data-generating process into a prior distribution over functions, presenting researchers with a transparent and probabilistically principled way to encode data-driven modeling preferences. Building on a novel, gold-standard bioactivity dataset that facilitates a meaningful comparison of models in an extrapolative regime, we explore different approaches to induce data shift and construct a challenging evaluation setup. We then demonstrate that using Q-SAVI to integrate contextualized prior knowledge of drug-like chemical space into the modeling process affords substantial gains in predictive accuracy and calibration, outperforming a broad range of state-of-the-art self-supervised pre-training and domain adaptation techniques.
+
+---
+
+The repository is structured as follows:
+
+- `data/` contains the both the raw and processed data, as well as all processing utilities required to derive the anti-maralarial dataset and the ZINC-based context point distribution.
+  - `datasets/` contains the raw and processed anti-malarial dataset, as well as ~2m unlabeled molecular structures from the ZINC database.
+  - `preprocess_antimalarial_data.ipynb` annotated notebook that describes all procedures used for data curation, covariate and label shift quantification, and data splitting.
+  - `preprocess_zinc.py` utilities to convert ZINC SMILES strings to ECFPs and rdkitFPs.
+- `qsavi/` contains all models, utilities and training scripts required to reproduce and extend the results presented in the paper.
+  - `bayesian_mlps.py` contains the implementation of the Bayesian MLPs used in the paper.
+  - `config.py` contains all hyperparameters used in the paper.
+  - `context_points.py` contains the implementation of the context point distribution used in the paper.
+  - `data_loader.py` contains the implementation of the data loader used in the paper.
+  - `linearization.py` contains the implementation of the linearization procedure used in the paper.
+  - `objective.py` contains the implementation of the objective function used in the paper.
+  - `qsavi.py` contains the implementation of the Q-SAVI model used in the paper.
+  - `utils.py` contains the implementation of the utilities used in the paper.
+
+
+## Installation and Setup
+
+```
+# download source code and data
+git clone https://github.com/leojklarner/Q-SAVI.git
+cd Q-SAVI
+
+# unzip the provided context point distribution
+
+# create a virtual environment with appropriate JAX version
+python -m venv qsavi_env
+source qsavi_env/bin/activate
+python -m pip install --upgrade pip
+python -m pip install --upgrade jax==0.4.7
+python -m pip install https://storage.googleapis.com/jax-releases/cuda11/jaxlib-0.4.7+cuda11.cudnn82-cp310-cp310-manylinux2014_x86_64.whl
+python -m pip install --upgrade -r requirements.txt
+```
 
 # Citation
 
