@@ -1,0 +1,14 @@
+pandas
+numpy
+scipy
+tqdm
+rdkit
+seaborn
+ipykernel
+jupyterlab
+matplotlib
+scikit-learn==1.2.2
+optax
+dm-haiku
+tensorflow
+tensorflow_probability
