@@ -23,15 +23,15 @@ The repository is structured as follows:
   - `datasets/` contains the raw and processed anti-malarial dataset, as well as ~2m unlabeled molecular structures from the ZINC database.
   - `preprocess_antimalarial_data.ipynb` annotated notebook that describes all procedures used for data curation, covariate and label shift quantification, and data splitting.
   - `preprocess_zinc.py` utilities to convert ZINC SMILES strings to ECFPs and rdkitFPs.
-- `qsavi/` contains all models, utilities and training scripts required to reproduce and extend the results presented in the paper.
-  - `bayesian_mlps.py` contains the implementation of the Bayesian MLPs used in the paper.
-  - `config.py` contains all hyperparameters used in the paper.
-  - `context_points.py` contains the implementation of the context point distribution used in the paper.
-  - `data_loader.py` contains the implementation of the data loader used in the paper.
-  - `linearization.py` contains the implementation of the linearization procedure used in the paper.
-  - `objective.py` contains the implementation of the objective function used in the paper.
-  - `qsavi.py` contains the implementation of the Q-SAVI model used in the paper.
-  - `utils.py` contains the implementation of the utilities used in the paper.
+- `qsavi/` contains all models, objectives and utilities required to reproduce and extend the results presented in the paper.
+  - `bayesian_mlps.py` definition of stochastic MLPs used in the paper.
+  - `config.py` default hyperparameter settings and search spaces.
+  - `context_points.py` functions to sample from pre-processed context point distribution.
+  - `data_loader.py` data loading and processing utilities.
+  - `linearization.py` linearization utilities for the objective evaluation.
+  - `objective.py` implementation of the function-space objective presented in the paper.
+  - `qsavi.py` Q-SAVI class that combines stochastic MLPs with function-space objective.
+  - `utils.py` miscellaneous utilities. 
 
 
 ## Installation and Setup
