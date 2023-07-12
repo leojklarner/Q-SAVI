@@ -37,7 +37,7 @@ def get_context_points(
 
     # randomly choose pre-processed context point file from specified directory
 
-    context_point_dir = os.path.join(data_dir, "zinc")
+    context_point_dir = os.path.join(data_dir, "zinc", featurization_map[featurization])
     context_point_files = [
         f
         for f in os.listdir(context_point_dir)
