@@ -17,7 +17,7 @@ In this paper, we present Q-SAVI, a probabilistic model able to address these ch
 
 ---
 
-The repository is structured as follows:
+All Q-SAVI models and objectives are implemented in JAX/Haiku. The repository is structured as follows: 
 
 - `data/` contains the both the raw and processed data, as well as all processing utilities required to derive the anti-maralarial dataset and the ZINC-based context point distribution.
   - `datasets/` contains the raw and processed anti-malarial dataset, as well as ~2m unlabeled molecular structures from the ZINC database.
@@ -34,16 +34,19 @@ The repository is structured as follows:
   - `utils.py` miscellaneous utilities. 
 
 
+## Quick Start in Colab [![Q-SAVI in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/leojklarner/Q-SAVI/blob/staging/qsavi.ipynb)
+
+The easiest way to get started with Q-SAVI is to run the provided Colab notebook. It takes care of the installation and setup for you, and provides a step-by-step demonstration on how to train and evaluate Q-SAVI models and reproduce the experimental results presented in the paper.
+
 ## Installation and Setup
 
+Download the Q-SAVI source code from GitHub and set up a virtual environment with the appropriate JAX version (see https://github.com/google/jax#installation for more details).
+
 ```
-# download source code and data
-git clone https://github.com/leojklarner/Q-SAVI.git
+git clone -b staging https://github.com/leojklarner/Q-SAVI.git
+
 cd Q-SAVI
 
-# unzip the provided context point distribution
-
-# create a virtual environment with appropriate JAX version
 python -m venv qsavi_env
 source qsavi_env/bin/activate
 python -m pip install --upgrade pip
@@ -52,7 +55,49 @@ python -m pip install https://storage.googleapis.com/jax-releases/cuda11/jaxlib-
 python -m pip install --upgrade -r requirements.txt
 ```
 
-# Citation
+Download and extract the pre-processed context point distribution, i.e. a uniform subsample of the ZINC database featurized as extended connectivity fingerprints.
+
+```
+mkdir data/datasets/zinc
+wget https://www.dropbox.com/s/xsbz8wyewupnpe8/zinc_context_points_ecfp.tar.gz?dl=0 -P data/datasets/zinc
+tar -xf data/datasets/zinc/zinc_context_points_ecfp.tar.gz?dl=0 -C data/datasets/zinc
+```
+
+## Running Models
+
+The Q-SAVI models are instantiated as a `qsavi.QSAVI` class, which combines a stochastic MLP with the function-space objective. All hyperparameter options are specified in `qsavi/config.py`. The following code snippet demonstrates how to instantiate a Q-SAVI model with the default hyperparameter settings.
+
+```
+import argparse
+from qsavi.config import add_qsavi_args
+from qsavi.qsavi import QSAVI
+
+def run_qsavi():
+
+  parser = argparse.ArgumentParser()
+  add_qsavi_args(parser)
+  kwargs = parser.parse_args()
+
+  kwargs.split = "spectral_split"
+  kwargs.featurization = "ec_bit_fp"
+  kwargs.learning_rate = 1e-4
+  kwargs.num_layers = 2
+  kwargs.embed_dim = 32
+  kwargs.prior_cov = 100.0
+  kwargs.n_context_points = 16
+  kwargs.datadir = "data/datasets"
+
+  qsavi = QSAVI(kwargs)
+  val_metrics, test_metrics = qsavi.train()
+
+  return val_metrics, test_metrics
+```
+
+## Customizing Q-SAVI Models
+
+The Q-SAVI model can be applied to new datasets by implementing a custom data loader, see `qsavi/data_loader.py`. Similarly, a customized prior distribution over the induced function space of the MLP can be specified by adapting the prior function in `qsavi/objective.py`.
+
+## Citation
 
 If you found our paper or code useful for your research, please consider citing it as:
 
