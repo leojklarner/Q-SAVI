@@ -99,7 +99,7 @@ The Q-SAVI model can be applied to new datasets by implementing a custom data lo
 
 ## Citation
 
-If you found our paper or code useful for your research, please consider citing it as:
+If you found our paper or code useful, please cite it as:
 
 ```
 @InProceedings{klarner2023qsavi,
