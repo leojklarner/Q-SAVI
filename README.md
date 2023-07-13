@@ -34,7 +34,7 @@ All Q-SAVI models and objectives are implemented in JAX/Haiku. The repository is
   - `utils.py` miscellaneous utilities. 
 
 
-## Quick Start in Colab [![Q-SAVI in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/leojklarner/Q-SAVI/blob/staging/qsavi.ipynb)
+## Quick Start in Colab [![Q-SAVI in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/leojklarner/Q-SAVI/blob/main/qsavi.ipynb)
 
 The easiest way to get started with Q-SAVI is to run the provided Colab notebook. It takes care of the installation and setup for you, and provides a step-by-step demonstration on how to train and evaluate Q-SAVI models and reproduce the experimental results presented in the paper.
 
